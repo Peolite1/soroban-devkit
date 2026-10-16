@@ -306,7 +306,7 @@ const CAPABILITIES: [Capability; CAP_COUNT] = [
         formats: PRETTY_JSON,
         evidence: Evidence::VerifiedLocal,
         notes: Some(
-            "Findings are advisory signals, never proofs of exploitability; the audit exit code does not encode finding severity (use the GitHub Action's severity-threshold).",
+            "Findings are advisory signals, never proofs of exploitability; audit exits 0 on findings by default (use --fail-on <severity> to exit 1 when a finding is at or above the threshold).",
         ),
         ..Capability::BASE
     },

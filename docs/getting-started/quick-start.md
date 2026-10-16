@@ -167,16 +167,16 @@ Interpreting the output:
 * `warning` findings (e.g. `MOVE-001` — a possible move-after-use of a local) are heuristic and worth a look but are not necessarily bugs.
 * JSON mode (`--format json`) emits the same result as structured data for CI.
 
-> **Exit code:** `sdkt audit` exits `0` even when it reports `critical` findings —
-> the CLI does not encode finding severity into its exit status. A CI gate must
-> therefore read the result, not just the exit code: either use the
+> **Exit code:** By default, `sdkt audit` exits `0` on findings. Pass
+> `--fail-on <severity>` (e.g. `--fail-on critical`) to exit `1` when any
+> finding is at or above the threshold. Alternatively, gate on the
 > [reusable Action](../compatibility/ci-cd.md) (its `severity-threshold` input
 > fails the build on `critical`) or parse `--format json` and check
 > `summary.critical`.
 
-Audit runs entirely offline and is safe to gate pull requests on — through the
-Action or a `summary.critical` check, not the raw exit code (see the note
-above). See [examples.md](examples.md) for the audit-on-PR recipe.
+Audit runs entirely offline and is safe to gate pull requests on — using
+`--fail-on`, the Action, or a `summary.critical` check. See
+[examples.md](examples.md) for the audit-on-PR recipe.
 
 ***
 

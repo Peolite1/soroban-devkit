@@ -621,12 +621,11 @@ Most commands accept `--format json` for scripting / CI integration.
 
 ## Common Workflows
 
-- **Audit every PR** — gate merges on `sdkt audit` via the
-  [reusable Action](docs/compatibility/ci-cd.md), whose `severity-threshold`
-  input fails the build on `critical` findings. The CLI itself reports findings
-  but does **not** encode severity into its exit code — `sdkt audit` exits 0
-  even when it prints critical findings, so gate on the Action (or parse
-  `--format json`'s `summary.critical`) rather than on the bare exit code. See
+- **Audit every PR** — gate merges natively with `sdkt audit --fail-on <severity>`
+  (e.g. `--fail-on critical` exits 1 when a finding at or above the threshold
+  exists; by default `sdkt audit` exits 0 on findings), or via the
+  [reusable Action](docs/compatibility/ci-cd.md) whose `severity-threshold`
+  input fails the build on `critical`. See
   [docs/ci-cd.md](docs/compatibility/ci-cd.md).
 - **Safe upgrades** — run `sdkt diff --upgrade-safety` in release CI to block
   breaking contract changes.
